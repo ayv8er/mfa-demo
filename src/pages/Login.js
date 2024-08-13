@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { magic } from "../lib/magic";
 import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
@@ -5,7 +6,7 @@ import { FaGoogle } from "react-icons/fa";
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleLogin = async (loginType) => {
+  const handleLogin = useCallback(async (loginType) => {
     try {
       if (loginType === 'email') {
         const did = await magic.wallet.connectWithUI();
@@ -20,7 +21,7 @@ const Login = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [navigate]);
 
   return (
     <div className="container">

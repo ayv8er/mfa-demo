@@ -1,16 +1,16 @@
 import { useEffect, useCallback } from "react";
 import { magic } from "../lib/magic";
 
-const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, toggleMfaSetting }) => {
+const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, setUser, toggleMfaSetting }) => {
 
   const finishSocialLogin = useCallback(async () => {
     try {
-      await magic.oauth2.getRedirectResult();
-      getMetadata();
+      const data = await magic.oauth2.getRedirectResult();
+      setUser(data.magic.userMetadata)
     } catch (err) {
       console.error(err);
     }
-  }, [getMetadata]);
+  }, [setUser]);
 
   useEffect(() => {
     if (localStorage.getItem('isGoogleRedirect')) {

@@ -78,6 +78,7 @@ function App() {
             <Dashboard 
               user={user}
               logout={logout}
+              setUser={setUser}
               getMetadata={getMetadata}
               printMetadata={printMetadata}
               toggleMfaSetting={toggleMfaSetting}
