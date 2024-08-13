@@ -5,21 +5,18 @@ import { FaGoogle } from "react-icons/fa";
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleEmailOtpLogin = async () => {
+  const handleLogin = async (loginType) => {
     try {
-      const did = await magic.wallet.connectWithUI();
-      if (did) navigate("/email-dashboard");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      await magic.oauth2.loginWithRedirect({
-        provider: 'google',
-        redirectURI: new URL("/oauth-dashboard", window.location.origin).href,
-      });
+      if (loginType === 'email') {
+        const did = await magic.wallet.connectWithUI();
+        if (did) navigate("/dashboard");
+      } else if (loginType === 'google') {
+        localStorage.setItem("isGoogleRedirect", true);
+        await magic.oauth2.loginWithRedirect({
+          provider: 'google',
+          redirectURI: new URL("dashboard", window.location.origin).href,
+        });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -28,11 +25,11 @@ const Login = () => {
   return (
     <div className="container">
     <h1>Magic MFA App</h1>
-      <button onClick={handleEmailOtpLogin}>
+      <button onClick={() => handleLogin('email')}>
         Login with Email OTP
       </button>
       <br />
-      <button onClick={() => handleGoogleLogin()}>
+      <button onClick={() => handleLogin('google')}>
         <FaGoogle size={"2.5rem"} />
         Log in with Google
       </button>

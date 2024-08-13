@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { magic } from "./lib/magic";
 import { useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
-import OAuthDashboard from "./pages/OAuthDashboard";
-import EmailDashboard from "./pages/EmailDashboard";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [user, setUser] = useState();
@@ -15,18 +14,23 @@ function App() {
       const metadata = await magic.user.getInfo();
       setUser(metadata);
     } catch (err) {
+      navigate("/");
       console.error(err);
     }
-  }, []);
+  }, [navigate]);
 
-  const showMfaSetting = useCallback(async () => {
+  const toggleMfaSetting = useCallback(async () => {
     try {
-      await magic.user.showSettings({ page: 'mfa' });
+      if (user.isMfaEnabled) {
+        await magic.user.disableMFA();
+      } else {
+        await magic.user.enableMFA();
+      }
       getMetadata();
     } catch (err) {
       console.error(err);
     }
-  }, [getMetadata]);
+  }, [getMetadata, user?.isMfaEnabled]);
 
   const printMetadata = useCallback(async () => {
     try {
@@ -69,26 +73,14 @@ function App() {
           } 
         />
         <Route 
-          path="/oauth-dashboard" 
+          path="/dashboard" 
           element={
-            <OAuthDashboard 
+            <Dashboard 
               user={user}
               logout={logout}
               getMetadata={getMetadata}
               printMetadata={printMetadata}
-              showMfaSetting={showMfaSetting}
-            />
-          } 
-        />
-        <Route 
-          path="/email-dashboard" 
-          element={
-            <EmailDashboard 
-              user={user}
-              logout={logout}
-              getMetadata={getMetadata}
-              printMetadata={printMetadata}
-              showMfaSetting={showMfaSetting}
+              toggleMfaSetting={toggleMfaSetting}
             />
           } 
         />
