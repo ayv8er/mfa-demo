@@ -36,11 +36,11 @@ const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, setUser, tog
         </div>
         <br />
         <button className="logout-button" onClick={printMetadata}>
-          getInfo
+          Print Metadata
         </button>
         <br />
         <button className="logout-button" onClick={toggleMfaSetting}>
-          MFA Setting
+          { user.isMfaEnabled ? "Disable MFA" : "Enable MFA" }
         </button>
         <br />
         <button className="logout-button" onClick={logout}>
