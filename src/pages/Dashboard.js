@@ -1,16 +1,19 @@
 import { useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { magic } from "../lib/magic";
 
 const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, setUser, toggleMfaSetting }) => {
+  const navigate = useNavigate();
 
   const finishSocialLogin = useCallback(async () => {
     try {
       const data = await magic.oauth2.getRedirectResult();
       setUser(data.magic.userMetadata)
     } catch (err) {
+      navigate("/");
       console.error(err);
     }
-  }, [setUser]);
+  }, [setUser, navigate]);
 
   useEffect(() => {
     if (localStorage.getItem('isGoogleRedirect')) {

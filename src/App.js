@@ -41,15 +41,6 @@ function App() {
     }
   }, []);
 
-  const isLoggedIn = useCallback(async () => {
-    try {
-        const bool = await magic.user.isLoggedIn();
-        return bool;
-    } catch (err) {
-        console.error(err);
-    }
-  }, []);
-
   const logout = useCallback(async () => {
     try {
       await magic.user.logout();
@@ -66,10 +57,7 @@ function App() {
         <Route 
           path="/" 
           element={
-            <Login 
-              isLoggedIn={isLoggedIn} 
-              getMetadata={getMetadata} 
-            />
+            <Login />
           } 
         />
         <Route 
