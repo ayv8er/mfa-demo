@@ -10,7 +10,7 @@ const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, toggleMfaSet
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [getMetadata]);
 
   useEffect(() => {
     if (localStorage.getItem('isGoogleRedirect')) {
