@@ -5,8 +5,8 @@ const OAuthDashboard = ({ logout, printMetadata, getMetadata, user, toggleMfaSet
 
   const finishSocialLogin = useCallback(async () => {
     try {
-      const result = await magic.oauth2.getRedirectResult();
-      console.log('getRedirectResult', result);
+      await magic.oauth2.getRedirectResult();
+      getMetadata();
     } catch (err) {
       console.error(err);
     }
