@@ -29,11 +29,11 @@ const Login = () => {
       <button onClick={() => handleLogin('email')}>
         Login with Email OTP
       </button>
-      <br />
+      {/* <br />
       <button onClick={() => handleLogin('google')}>
         <FaGoogle size={"2.5rem"} />
         Log in with Google
-      </button>
+      </button> */}
     </div>
   );
 };
