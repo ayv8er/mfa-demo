@@ -23,6 +23,14 @@ const Login = () => {
     }
   }, [navigate]);
 
+  const handleRecovery = useCallback(async () => {
+    try {
+
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   return (
     <div className="container">
     <h1>Magic Demo MFA App</h1>
@@ -33,6 +41,10 @@ const Login = () => {
       <button onClick={() => handleLogin('google')}>
         <FaGoogle size={"2.5rem"} />
         Log in with Google
+      </button>
+      <br />
+      <button onClick={handleRecovery}>
+        Recover Account
       </button>
     </div>
   );
