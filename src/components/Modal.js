@@ -1,7 +1,6 @@
 import QRCode from "react-qr-code";
 
 function Modal({ isLoading, cancelEnableMfa, qrCode, keyCode }) {
-  console.log('isLoading', isLoading);
   return (
     <div>
       <h3>Enable MFA</h3>
